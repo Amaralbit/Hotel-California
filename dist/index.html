@@ -88,6 +88,8 @@
       .main-nav { display: flex; align-items: center; gap: 1.6rem; font-size: .9rem; }
       .main-nav a:not(.header-cta) { opacity: .86; transition: opacity .2s ease; }
       .main-nav a:not(.header-cta):hover { opacity: 1; }
+      .main-nav a.nav-rooms { display: inline-flex; align-items: center; min-height: 2.45rem; padding: 0 .85rem; border: 1px solid rgba(255,255,255,.5); border-radius: 999px; background: rgba(7,31,36,.56); color: var(--white); box-shadow: 0 .35rem .9rem rgba(0,0,0,.16); font-weight: 800; opacity: 1; transition: transform .2s ease, background .2s ease, color .2s ease; }
+      .main-nav a.nav-rooms:hover { background: var(--white); color: var(--ink-deep); transform: translateY(-2px); }
       .header-cta, .button {
         display: inline-flex;
         align-items: center;
@@ -242,6 +244,8 @@
         .shell { width: min(100% - 2rem, 1140px); }
         .topbar { min-height: 4.8rem; }
         .main-nav a:not(.header-cta) { display: none; }
+        .main-nav { gap: .45rem; }
+        .main-nav a.nav-rooms { display: inline-flex; min-height: 2.5rem; padding: 0 .65rem; font-size: .7rem; }
         .header-cta { min-height: 2.5rem; padding: 0 .9rem; font-size: .75rem; }
         .hero, .hero-content { min-height: 42rem; }
         .hero-content { padding: 8rem 0 3.2rem; }
@@ -274,7 +278,7 @@
           <span>Hotel California<small>Goiânia</small></span>
         </a>
         <nav class="main-nav" aria-label="Navegação principal">
-          <a href="quartos.html">Quartos & reservas</a>
+          <a class="nav-rooms" href="quartos.html">Quartos & reservas</a>
           <a href="#acomodacoes">Acomodações</a>
           <a href="#cafe">Café da manhã</a>
           <a href="#localizacao">Localização</a>
@@ -296,7 +300,7 @@
             <h1 id="hero-title">Chegue bem.<br />Descanse melhor.</h1>
             <p>Uma estadia tranquila, prática e acolhedora para você aproveitar Goiânia no seu próprio ritmo.</p>
             <div class="hero-actions">
-              <a class="button button-light" href="tel:+5562994871117">Consultar disponibilidade <span aria-hidden="true">↗</span></a>
+              <a class="button button-light" href="quartos.html">Ver quartos & reservas <span aria-hidden="true">↗</span></a>
               <a class="button button-ghost" href="#acomodacoes">Conheça o hotel</a>
             </div>
             <div class="hero-note" aria-label="Avaliação no Google: 4 de 5, com 361 avaliações">
