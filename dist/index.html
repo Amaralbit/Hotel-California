@@ -86,8 +86,8 @@
       .brand span:last-child { display: none; }
       .brand small { display: block; margin-top: -.22rem; font-family: inherit; font-size: .6rem; font-weight: 700; letter-spacing: .21em; text-transform: uppercase; }
       .main-nav { display: flex; align-items: center; gap: 1.6rem; font-size: .9rem; }
-      .main-nav a:not(.header-cta) { opacity: .86; transition: opacity .2s ease; }
-      .main-nav a:not(.header-cta):hover { opacity: 1; }
+      .main-nav a:not(.header-cta) { color: var(--white); opacity: 1; text-shadow: 0 .08rem .35rem rgba(0,0,0,.58); transition: opacity .2s ease, color .2s ease; }
+      .main-nav a:not(.header-cta):hover { color: var(--gold-soft); opacity: 1; }
       .main-nav a.nav-rooms { display: inline-flex; align-items: center; min-height: 2.45rem; padding: 0 .85rem; border: 1px solid rgba(255,255,255,.5); border-radius: 999px; background: rgba(7,31,36,.56); color: var(--white); box-shadow: 0 .35rem .9rem rgba(0,0,0,.16); font-weight: 800; opacity: 1; transition: transform .2s ease, background .2s ease, color .2s ease; }
       .main-nav a.nav-rooms:hover { background: var(--white); color: var(--ink-deep); transform: translateY(-2px); }
       .header-cta, .button {
@@ -122,9 +122,7 @@
         background: linear-gradient(90deg, rgba(4, 19, 23, .84) 0%, rgba(7, 30, 34, .58) 48%, rgba(7, 23, 27, .16) 100%), linear-gradient(0deg, rgba(4, 18, 21, .28), transparent 45%);
       }
       .hero::after { content: ""; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: radial-gradient(circle at var(--glow-x, 72%) var(--glow-y, 35%), rgba(229,183,111,.2), transparent 26%); transition: background .2s ease; }
-      .hero-slides { position: absolute; z-index: 0; inset: -2rem; overflow: hidden; }
-      .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 47%; filter: saturate(.84) contrast(1.05); opacity: 0; transform: translate3d(11%, var(--hero-parallax, 0px), 0) scale(1.06); }
-      .hero-slide.is-active { z-index: 1; animation: hero-slide 8.2s cubic-bezier(.22,.61,.36,1) both; }
+      .hero-background { position: absolute; z-index: 0; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 51%; filter: saturate(.87) contrast(1.04); }
       .hero-content { position: relative; z-index: 3; display: flex; min-height: min(46rem, 92vh); align-items: flex-end; padding: 9.7rem 0 4.2rem; }
       .hero-copy { max-width: 46rem; }
       .hero-copy > * { animation: hero-rise .8s cubic-bezier(.2,.75,.25,1) both; }
@@ -231,13 +229,10 @@
       .review-card:hover { box-shadow: 0 1rem 2.3rem rgba(17,50,56,.11); transform: translateY(-4px); }
 
       @keyframes hero-rise { from { opacity: 0; transform: translateY(1.35rem); } to { opacity: 1; transform: translateY(0); } }
-      @keyframes hero-slide { 0% { opacity: 0; transform: translate3d(11%, var(--hero-parallax, 0px), 0) scale(1.06); } 13%, 82% { opacity: 1; } 100% { opacity: 0; transform: translate3d(-11%, var(--hero-parallax, 0px), 0) scale(1.04); } }
       @keyframes card-rise { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
 
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-        .hero-slide { animation: none !important; opacity: 0; transform: none; }
-        .hero-slide:first-child { opacity: 1; }
       }
 
       @media (max-width: 780px) {
@@ -289,11 +284,7 @@
 
     <main>
       <section class="hero" id="inicio" aria-labelledby="hero-title">
-        <div class="hero-slides" aria-hidden="true">
-          <img class="hero-slide is-active" src="images/suite-casal.png" alt="" />
-          <img class="hero-slide" src="images/quarto-duplo.png" alt="" />
-          <img class="hero-slide" src="images/quarto-com-tv.png" alt="" />
-        </div>
+        <img class="hero-background" src="images/imagem-principal-de-fundo.png" alt="" />
         <div class="shell hero-content">
           <div class="hero-copy">
             <span class="eyebrow">Em Goiânia, GO</span>

@@ -30,17 +30,6 @@ if (!reduceMotion) {
 
   const hero = document.querySelector(".hero");
   if (hero) {
-    const slides = [...hero.querySelectorAll(".hero-slide")];
-    if (slides.length > 1) {
-      let activeSlide = 0;
-      window.setInterval(() => {
-        const previousSlide = slides[activeSlide];
-        activeSlide = (activeSlide + 1) % slides.length;
-        slides[activeSlide].classList.add("is-active");
-        window.setTimeout(() => previousSlide.classList.remove("is-active"), 1300);
-      }, 6800);
-    }
-
     hero.addEventListener("pointermove", (event) => {
       const bounds = hero.getBoundingClientRect();
       const x = ((event.clientX - bounds.left) / bounds.width) * 100;
@@ -48,17 +37,5 @@ if (!reduceMotion) {
       hero.style.setProperty("--glow-x", `${x}%`);
       hero.style.setProperty("--glow-y", `${y}%`);
     });
-
-    let queued = false;
-    const parallax = () => {
-      hero.style.setProperty("--hero-parallax", `${Math.min(window.scrollY * 0.035, 26)}px`);
-      queued = false;
-    };
-
-    window.addEventListener("scroll", () => {
-      if (queued) return;
-      queued = true;
-      window.requestAnimationFrame(parallax);
-    }, { passive: true });
   }
 }
