@@ -55,9 +55,15 @@
       .section-heading p, .intro-copy p { margin: 0; color: var(--muted); font-size: 1.05rem; }
 
       .site-header {
-        position: absolute;
+        position: fixed;
         z-index: 5;
         inset: 0 0 auto;
+        transition: background .3s ease, box-shadow .3s ease, backdrop-filter .3s ease;
+      }
+      .site-header.is-scrolled {
+        background: rgba(7, 28, 33, .78);
+        box-shadow: 0 .4rem 1.4rem rgba(0,0,0,.16);
+        backdrop-filter: blur(14px);
         color: white;
       }
       .topbar {
@@ -67,19 +73,16 @@
         min-height: 5.7rem;
         border-bottom: 1px solid rgba(255,255,255,.18);
       }
-      .brand { display: inline-flex; align-items: center; gap: .7rem; font-family: Georgia, serif; font-size: 1.25rem; letter-spacing: .02em; }
+      .brand { display: inline-flex; align-items: center; gap: .7rem; }
       .brand-mark {
-        display: grid;
-        width: 2.05rem;
-        height: 2.05rem;
-        place-items: center;
-        border: 1px solid rgba(255,255,255,.7);
-        border-radius: 50%;
-        font-family: Georgia, serif;
-        font-size: .9rem;
-        font-weight: 700;
+        display: block;
+        width: 5.15rem;
+        height: 5.15rem;
+        flex: none;
       }
-      .brand span:last-child { display: block; }
+      .brand-logo { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 .25rem .55rem rgba(0,0,0,.23)); transition: transform .3s ease, filter .3s ease; }
+      .brand:hover .brand-logo { filter: drop-shadow(0 .35rem .85rem rgba(230,190,122,.28)); transform: translateY(-2px) rotate(-2deg); }
+      .brand span:last-child { display: none; }
       .brand small { display: block; margin-top: -.22rem; font-family: inherit; font-size: .6rem; font-weight: 700; letter-spacing: .21em; text-transform: uppercase; }
       .main-nav { display: flex; align-items: center; gap: 1.6rem; font-size: .9rem; }
       .main-nav a:not(.header-cta) { opacity: .86; transition: opacity .2s ease; }
@@ -115,9 +118,15 @@
         z-index: 1;
         background: linear-gradient(90deg, rgba(4, 19, 23, .84) 0%, rgba(7, 30, 34, .58) 48%, rgba(7, 23, 27, .16) 100%), linear-gradient(0deg, rgba(4, 18, 21, .28), transparent 45%);
       }
-      .hero img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: center 47%; filter: saturate(.84) contrast(1.05); }
+      .hero::after { content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: radial-gradient(circle at var(--glow-x, 72%) var(--glow-y, 35%), rgba(229,183,111,.2), transparent 26%); transition: background .2s ease; }
+      .hero img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: center 47%; filter: saturate(.84) contrast(1.05); transform: translate3d(0, var(--hero-parallax, 0px), 0) scale(1.04); transition: transform .12s linear, filter 1s ease; animation: hero-breathe 9s ease-in-out infinite alternate; }
       .hero-content { position: relative; z-index: 2; display: flex; min-height: min(46rem, 92vh); align-items: flex-end; padding: 9.7rem 0 4.2rem; }
       .hero-copy { max-width: 46rem; }
+      .hero-copy > * { animation: hero-rise .8s cubic-bezier(.2,.75,.25,1) both; }
+      .hero-copy h1 { animation-delay: .08s; }
+      .hero-copy p { animation-delay: .16s; }
+      .hero-copy .hero-actions { animation-delay: .24s; }
+      .hero-copy .hero-note { animation-delay: .32s; }
       .hero-copy h1 {
         margin: .9rem 0 1.35rem;
         font-family: Georgia, "Times New Roman", serif;
@@ -201,7 +210,28 @@
       .site-footer { padding: 2rem 0 2.5rem; background: var(--ink); color: rgba(255,255,255,.7); }
       .footer-line { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.17); font-size: .78rem; }
       .footer-line .brand { color: var(--white); font-size: 1rem; }
-      .footer-line .brand-mark { width: 1.75rem; height: 1.75rem; font-size: .75rem; }
+      .footer-line .brand-mark { width: 3.4rem; height: 3.4rem; }
+
+      .motion-ready [data-reveal] { opacity: 0; transform: translateY(1.25rem); transition: opacity .7s ease var(--reveal-delay, 0ms), transform .7s cubic-bezier(.2,.75,.25,1) var(--reveal-delay, 0ms); }
+      .motion-ready [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
+      .motion-ready .fact { animation: card-rise .55s cubic-bezier(.2,.75,.25,1) both; }
+      .motion-ready .fact:nth-child(2) { animation-delay: .08s; }
+      .motion-ready .fact:nth-child(3) { animation-delay: .16s; }
+      .motion-ready .fact:nth-child(4) { animation-delay: .24s; }
+      .fact { transition: transform .25s ease, background .25s ease; }
+      .fact:hover { background: #fbfcfa; transform: translateY(-4px); }
+      .stay-card { transition: transform .3s ease, box-shadow .3s ease; }
+      .stay-card:hover { box-shadow: 0 1.2rem 2.8rem rgba(0,0,0,.23); transform: translateY(-5px); }
+      .review-card { transition: transform .3s ease, box-shadow .3s ease; }
+      .review-card:hover { box-shadow: 0 1rem 2.3rem rgba(17,50,56,.11); transform: translateY(-4px); }
+
+      @keyframes hero-rise { from { opacity: 0; transform: translateY(1.35rem); } to { opacity: 1; transform: translateY(0); } }
+      @keyframes hero-breathe { from { filter: saturate(.8) contrast(1.04) brightness(.96); } to { filter: saturate(.92) contrast(1.07) brightness(1.04); } }
+      @keyframes card-rise { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
+
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      }
 
       @media (max-width: 780px) {
         .shell { width: min(100% - 2rem, 1140px); }
@@ -224,8 +254,7 @@
         .footer-line { align-items: flex-start; flex-direction: column; }
       }
       @media (max-width: 460px) {
-        .brand { font-size: 1rem; }
-        .brand-mark { width: 1.75rem; height: 1.75rem; font-size: .75rem; }
+        .brand-mark { width: 4.1rem; height: 4.1rem; }
         .brand small { font-size: .52rem; }
         .facts { grid-template-columns: 1fr; }
         .hero-copy h1 { font-size: 3.35rem; }
@@ -236,7 +265,7 @@
     <header class="site-header">
       <div class="shell topbar">
         <a class="brand" href="#inicio" aria-label="Hotel California - início">
-          <span class="brand-mark">HC</span>
+          <span class="brand-mark"><img class="brand-logo" src="dist/images/HotelCalifornia-ICON.png" alt="" /></span>
           <span>Hotel California<small>Goiânia</small></span>
         </a>
         <nav class="main-nav" aria-label="Navegação principal">
@@ -376,10 +405,11 @@
 
     <footer class="site-footer">
       <div class="shell footer-line">
-        <a class="brand" href="#inicio" aria-label="Voltar ao início"><span class="brand-mark">HC</span><span>Hotel California</span></a>
+        <a class="brand" href="#inicio" aria-label="Voltar ao início"><span class="brand-mark"><img class="brand-logo" src="dist/images/HotelCalifornia-ICON.png" alt="" /></span><span>Hotel California</span></a>
         <span>Goiânia, Goiás · Brasil</span>
         <a href="tel:+5562994871117">(62) 99487-1117</a>
       </div>
     </footer>
+    <script src="dist/assets/site-effects.js"></script>
   </body>
 </html>
