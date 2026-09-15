@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Hotel California em Goiânia: estadia acolhedora, quartos confortáveis e café da manhã." />
+    <title>Hotel California | Goiânia</title>
+    <style>
+      :root {
+        --ink: #113238;
+        --ink-deep: #0a2025;
+        --gold: #c89752;
+        --gold-soft: #f1dfc4;
+        --mist: #f5f6f3;
+        --white: #ffffff;
+        --muted: #66767a;
+        --line: #d9dfda;
+        --radius: 1.25rem;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        min-width: 320px;
+        color: var(--ink);
+        background: var(--mist);
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+      a { color: inherit; text-decoration: none; }
+      img { display: block; width: 100%; }
+      .shell { width: min(1140px, calc(100% - 3rem)); margin: 0 auto; }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: .55rem;
+        color: var(--gold);
+        font-size: .75rem;
+        font-weight: 800;
+        letter-spacing: .16em;
+        text-transform: uppercase;
+      }
+      .eyebrow::before { content: ""; width: 1.8rem; height: 1px; background: currentColor; }
+      .section-heading { max-width: 43rem; margin-bottom: 2.8rem; }
+      .section-heading h2, .intro-copy h2 {
+        margin: .65rem 0 1rem;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        font-weight: 400;
+        line-height: 1.08;
+        letter-spacing: -.035em;
+      }
+      .section-heading p, .intro-copy p { margin: 0; color: var(--muted); font-size: 1.05rem; }
+
+      .site-header {
+        position: absolute;
+        z-index: 5;
+        inset: 0 0 auto;
+        color: white;
+      }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 5.7rem;
+        border-bottom: 1px solid rgba(255,255,255,.18);
+      }
+      .brand { display: inline-flex; align-items: center; gap: .7rem; font-family: Georgia, serif; font-size: 1.25rem; letter-spacing: .02em; }
+      .brand-mark {
+        display: grid;
+        width: 2.05rem;
+        height: 2.05rem;
+        place-items: center;
+        border: 1px solid rgba(255,255,255,.7);
+        border-radius: 50%;
+        font-family: Georgia, serif;
+        font-size: .9rem;
+        font-weight: 700;
+      }
+      .brand span:last-child { display: block; }
+      .brand small { display: block; margin-top: -.22rem; font-family: inherit; font-size: .6rem; font-weight: 700; letter-spacing: .21em; text-transform: uppercase; }
+      .main-nav { display: flex; align-items: center; gap: 1.6rem; font-size: .9rem; }
+      .main-nav a:not(.header-cta) { opacity: .86; transition: opacity .2s ease; }
+      .main-nav a:not(.header-cta):hover { opacity: 1; }
+      .header-cta, .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: .5rem;
+        min-height: 2.85rem;
+        padding: 0 1.1rem;
+        border-radius: 999px;
+        background: var(--gold);
+        color: #1e2524;
+        font-size: .83rem;
+        font-weight: 800;
+        letter-spacing: .025em;
+        transition: transform .2s ease, background .2s ease;
+      }
+      .header-cta:hover, .button:hover { transform: translateY(-2px); background: #ddb673; }
+
+      .hero {
+        position: relative;
+        min-height: min(46rem, 92vh);
+        color: var(--white);
+        overflow: hidden;
+        background: var(--ink-deep);
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        background: linear-gradient(90deg, rgba(4, 19, 23, .84) 0%, rgba(7, 30, 34, .58) 48%, rgba(7, 23, 27, .16) 100%), linear-gradient(0deg, rgba(4, 18, 21, .28), transparent 45%);
+      }
+      .hero img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: center 47%; filter: saturate(.84) contrast(1.05); }
+      .hero-content { position: relative; z-index: 2; display: flex; min-height: min(46rem, 92vh); align-items: flex-end; padding: 9.7rem 0 4.2rem; }
+      .hero-copy { max-width: 46rem; }
+      .hero-copy h1 {
+        margin: .9rem 0 1.35rem;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(3.25rem, 7.5vw, 6.5rem);
+        font-weight: 400;
+        line-height: .95;
+        letter-spacing: -.065em;
+      }
+      .hero-copy p { max-width: 33rem; margin: 0; color: rgba(255,255,255,.89); font-size: clamp(1rem, 1.7vw, 1.15rem); }
+      .hero-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2rem; }
+      .button-light { background: var(--white); color: var(--ink-deep); }
+      .button-ghost { border: 1px solid rgba(255,255,255,.6); background: transparent; color: var(--white); }
+      .button-ghost:hover { background: rgba(255,255,255,.12); }
+      .hero-note { display: flex; align-items: center; gap: .7rem; margin-top: 2.5rem; color: rgba(255,255,255,.83); font-size: .85rem; }
+      .hero-note strong { color: var(--gold-soft); font-size: 1rem; }
+      .hero-note .stars { color: var(--gold); letter-spacing: .06em; }
+
+      .intro { padding: 7rem 0; }
+      .intro-grid { display: grid; grid-template-columns: 1.12fr .88fr; align-items: center; gap: 5.6rem; }
+      .intro-copy h2 { margin-top: 0; }
+      .intro-copy p + p { margin-top: 1rem; }
+      .facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--line); }
+      .fact { min-height: 8.2rem; padding: 1.5rem; background: var(--white); }
+      .fact-icon { display: grid; width: 2rem; height: 2rem; place-items: center; margin-bottom: 1rem; border-radius: 50%; background: #eff3f0; color: var(--ink); font-size: 1rem; }
+      .fact strong { display: block; font-size: .95rem; }
+      .fact span { display: block; margin-top: .25rem; color: var(--muted); font-size: .82rem; }
+
+      .stay { padding: 6.4rem 0; background: var(--ink); color: var(--white); }
+      .stay .section-heading p { color: rgba(255,255,255,.7); }
+      .stay-grid { display: grid; grid-template-columns: 1.1fr .9fr; gap: 1.25rem; }
+      .stay-card { position: relative; min-height: 27rem; overflow: hidden; border-radius: var(--radius); background: #0a2429; }
+      .stay-card:first-child { grid-row: span 2; min-height: 38rem; }
+      .stay-card img { height: 100%; object-fit: cover; transition: transform .5s ease; }
+      .stay-card:hover img { transform: scale(1.035); }
+      .stay-card::after { content: ""; position: absolute; inset: 35% 0 0; background: linear-gradient(transparent, rgba(0,0,0,.7)); }
+      .stay-label { position: absolute; z-index: 1; right: 1.5rem; bottom: 1.35rem; left: 1.5rem; }
+      .stay-label h3 { margin: 0; font-family: Georgia, serif; font-size: 1.65rem; font-weight: 400; }
+      .stay-label p { margin: .2rem 0 0; color: rgba(255,255,255,.78); font-size: .88rem; }
+
+      .breakfast { padding: 7rem 0; }
+      .breakfast-grid { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: clamp(2.5rem, 6vw, 6.8rem); }
+      .breakfast-photo { position: relative; }
+      .breakfast-photo img { aspect-ratio: 1.25 / 1; border-radius: var(--radius); object-fit: cover; }
+      .photo-stamp { position: absolute; right: -1.35rem; bottom: 1.5rem; display: grid; width: 8.1rem; height: 8.1rem; place-items: center; padding: 1rem; border-radius: 50%; background: var(--gold); color: var(--ink-deep); text-align: center; font-family: Georgia, serif; font-size: 1rem; line-height: 1.05; transform: rotate(10deg); }
+      .breakfast-copy h2 { margin: .65rem 0 1rem; font-family: Georgia, serif; font-size: clamp(2rem, 4vw, 3.3rem); font-weight: 400; line-height: 1.08; letter-spacing: -.035em; }
+      .breakfast-copy p { max-width: 33rem; margin: 0; color: var(--muted); font-size: 1.05rem; }
+      .list { display: grid; gap: .9rem; margin: 2rem 0 0; padding: 0; list-style: none; }
+      .list li { display: flex; gap: .75rem; align-items: center; font-weight: 700; font-size: .95rem; }
+      .list li::before { content: "✓"; display: grid; width: 1.3rem; height: 1.3rem; place-items: center; border-radius: 50%; background: var(--gold-soft); color: var(--ink); font-size: .75rem; }
+
+      .reviews { padding: 6.6rem 0; background: #e7ece8; }
+      .reviews-top { display: flex; align-items: end; justify-content: space-between; gap: 2rem; margin-bottom: 2.8rem; }
+      .reviews-top .section-heading { margin-bottom: 0; }
+      .rating-summary { flex: none; min-width: 14.5rem; padding: 1.2rem 1.5rem; border-left: 2px solid var(--gold); }
+      .rating-summary strong { display: block; font-family: Georgia, serif; font-size: 2.4rem; font-weight: 400; line-height: 1; }
+      .rating-summary .stars { color: #bd7e24; letter-spacing: .09em; font-size: .9rem; }
+      .rating-summary span { color: var(--muted); font-size: .8rem; }
+      .review-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+      .review-card { min-height: 14.5rem; padding: 2rem; border-radius: var(--radius); background: var(--white); }
+      .review-card .stars { color: #c88725; letter-spacing: .1em; font-size: .86rem; }
+      .review-card blockquote { margin: 1.35rem 0 1.2rem; font-family: Georgia, serif; font-size: clamp(1.2rem, 2vw, 1.48rem); line-height: 1.22; letter-spacing: -.02em; }
+      .review-card cite { color: var(--muted); font-size: .84rem; font-style: normal; }
+      .review-card--soft { background: var(--ink); color: var(--white); }
+      .review-card--soft cite { color: rgba(255,255,255,.7); }
+      .review-card--soft .review-note { color: rgba(255,255,255,.79); }
+      .review-note { margin: 1.35rem 0 0; color: var(--muted); font-size: .98rem; }
+      .reviews-link { display: inline-flex; margin-top: 1.65rem; color: var(--ink); font-size: .88rem; font-weight: 800; text-decoration: underline; text-underline-offset: .28rem; }
+
+      .visit { padding: 7rem 0 0; }
+      .visit-grid { display: grid; grid-template-columns: .85fr 1.15fr; overflow: hidden; border-radius: var(--radius) var(--radius) 0 0; background: var(--ink); color: var(--white); }
+      .visit-copy { display: flex; min-height: 29rem; flex-direction: column; justify-content: center; padding: clamp(2.5rem, 6vw, 5rem); }
+      .visit-copy h2 { margin: .65rem 0 1rem; font-family: Georgia, serif; font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 400; line-height: 1.06; letter-spacing: -.035em; }
+      .visit-copy p { margin: 0; color: rgba(255,255,255,.72); }
+      .address { margin: 2rem 0; padding: 1.2rem 0; border-top: 1px solid rgba(255,255,255,.22); border-bottom: 1px solid rgba(255,255,255,.22); color: rgba(255,255,255,.93); font-size: .92rem; }
+      .address strong { display: block; margin-bottom: .3rem; color: var(--gold-soft); font-size: .76rem; letter-spacing: .14em; text-transform: uppercase; }
+      .map-wrap { min-height: 29rem; background: #cdd6d2; }
+      .map-wrap iframe { display: block; width: 100%; height: 100%; min-height: 29rem; border: 0; filter: saturate(.82) contrast(1.02); }
+
+      .site-footer { padding: 2rem 0 2.5rem; background: var(--ink); color: rgba(255,255,255,.7); }
+      .footer-line { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,.17); font-size: .78rem; }
+      .footer-line .brand { color: var(--white); font-size: 1rem; }
+      .footer-line .brand-mark { width: 1.75rem; height: 1.75rem; font-size: .75rem; }
+
+      @media (max-width: 780px) {
+        .shell { width: min(100% - 2rem, 1140px); }
+        .topbar { min-height: 4.8rem; }
+        .main-nav a:not(.header-cta) { display: none; }
+        .header-cta { min-height: 2.5rem; padding: 0 .9rem; font-size: .75rem; }
+        .hero, .hero-content { min-height: 42rem; }
+        .hero-content { padding: 8rem 0 3.2rem; }
+        .intro, .breakfast { padding: 5rem 0; }
+        .intro-grid, .breakfast-grid, .visit-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+        .stay, .reviews { padding: 5rem 0; }
+        .stay-grid { grid-template-columns: 1fr; }
+        .stay-card:first-child, .stay-card { min-height: 24rem; grid-row: auto; }
+        .breakfast-photo { max-width: 35rem; }
+        .photo-stamp { right: -.55rem; width: 6.9rem; height: 6.9rem; font-size: .87rem; }
+        .reviews-top { display: block; }
+        .rating-summary { margin-top: 1.8rem; }
+        .review-grid { grid-template-columns: 1fr; }
+        .visit-copy, .map-wrap, .map-wrap iframe { min-height: 25rem; }
+        .footer-line { align-items: flex-start; flex-direction: column; }
+      }
+      @media (max-width: 460px) {
+        .brand { font-size: 1rem; }
+        .brand-mark { width: 1.75rem; height: 1.75rem; font-size: .75rem; }
+        .brand small { font-size: .52rem; }
+        .facts { grid-template-columns: 1fr; }
+        .hero-copy h1 { font-size: 3.35rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="shell topbar">
+        <a class="brand" href="#inicio" aria-label="Hotel California - início">
+          <span class="brand-mark">HC</span>
+          <span>Hotel California<small>Goiânia</small></span>
+        </a>
+        <nav class="main-nav" aria-label="Navegação principal">
+          <a href="#acomodacoes">Acomodações</a>
+          <a href="#cafe">Café da manhã</a>
+          <a href="#localizacao">Localização</a>
+          <a class="header-cta" href="tel:+5562994871117">Fale conosco</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="inicio" aria-labelledby="hero-title">
+        <img src="dist/images/suite-casal.png" alt="Quarto do Hotel California, com cama de casal e cama de solteiro" />
+        <div class="shell hero-content">
+          <div class="hero-copy">
+            <span class="eyebrow">Em Goiânia, GO</span>
+            <h1 id="hero-title">Chegue bem.<br />Descanse melhor.</h1>
+            <p>Uma estadia tranquila, prática e acolhedora para você aproveitar Goiânia no seu próprio ritmo.</p>
+            <div class="hero-actions">
+              <a class="button button-light" href="tel:+5562994871117">Consultar disponibilidade <span aria-hidden="true">↗</span></a>
+              <a class="button button-ghost" href="#acomodacoes">Conheça o hotel</a>
+            </div>
+            <div class="hero-note" aria-label="Avaliação no Google: 4 de 5, com 361 avaliações">
+              <span class="stars" aria-hidden="true">★★★★</span><strong>4,0</strong><span>no Google · 361 avaliações</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="intro" id="sobre" aria-labelledby="sobre-title">
+        <div class="shell intro-grid">
+          <div class="intro-copy">
+            <span class="eyebrow">Feito para a sua pausa</span>
+            <h2 id="sobre-title">O essencial para uma boa estadia.</h2>
+            <p>No Hotel California, conforto e praticidade caminham juntos. Aqui, cada detalhe é pensado para receber você com leveza — seja em uma viagem a trabalho, uma parada rápida ou dias para explorar a cidade.</p>
+            <p>Quartos funcionais, atendimento atencioso e uma localização que conecta você aos principais caminhos de Goiânia.</p>
+          </div>
+          <div class="facts" aria-label="Comodidades do hotel">
+            <div class="fact"><span class="fact-icon" aria-hidden="true">❄</span><strong>Ar-condicionado</strong><span>Mais conforto para sua noite.</span></div>
+            <div class="fact"><span class="fact-icon" aria-hidden="true">⌁</span><strong>Wi-Fi incluso</strong><span>Para ficar sempre conectado.</span></div>
+            <div class="fact"><span class="fact-icon" aria-hidden="true">☕</span><strong>Café da manhã</strong><span>Comece o dia com sabor.</span></div>
+            <div class="fact"><span class="fact-icon" aria-hidden="true">♧</span><strong>Pet friendly</strong><span>Seu companheiro é bem-vindo.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="stay" id="acomodacoes" aria-labelledby="acomodacoes-title">
+        <div class="shell">
+          <div class="section-heading">
+            <span class="eyebrow">Acomodações</span>
+            <h2 id="acomodacoes-title">Seu refúgio para recarregar.</h2>
+            <p>Ambientes simples, limpos e preparados para transformar o descanso em parte da sua viagem.</p>
+          </div>
+          <div class="stay-grid">
+            <article class="stay-card">
+              <img src="dist/images/quarto-duplo.png" alt="Quarto com duas camas e cortinas escuras" />
+              <div class="stay-label"><h3>Quartos para compartilhar</h3><p>Espaço para viajar acompanhado com tranquilidade.</p></div>
+            </article>
+            <article class="stay-card">
+              <img src="dist/images/quarto-com-tv.png" alt="Quarto com televisão, armário e frigobar" />
+              <div class="stay-label"><h3>Conforto no seu ritmo</h3><p>Praticidade para a sua rotina fora de casa.</p></div>
+            </article>
+            <article class="stay-card">
+              <img src="dist/images/suite-casal.png" alt="Cama organizada em quarto do Hotel California" />
+              <div class="stay-label"><h3>Descanso de verdade</h3><p>Uma noite tranquila começa em um bom quarto.</p></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="breakfast" id="cafe" aria-labelledby="cafe-title">
+        <div class="shell breakfast-grid">
+          <div class="breakfast-photo">
+            <img src="dist/images/cafe-da-manha.png" alt="Itens servidos no café da manhã do Hotel California" />
+            <span class="photo-stamp">um bom dia<br />começa aqui</span>
+          </div>
+          <div class="breakfast-copy">
+            <span class="eyebrow">Café da manhã</span>
+            <h2 id="cafe-title">O melhor convite para começar o dia.</h2>
+            <p>Seu dia em Goiânia merece começar sem pressa. Servimos um café da manhã para trazer sabor e energia antes de você seguir viagem.</p>
+            <ul class="list">
+              <li>Opções para uma manhã gostosa</li>
+              <li>Ambiente leve para a sua primeira pausa</li>
+              <li>Hospitalidade que acompanha cada detalhe</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="reviews" id="avaliacoes" aria-labelledby="avaliacoes-title">
+        <div class="shell">
+          <div class="reviews-top">
+            <div class="section-heading">
+              <span class="eyebrow">Avaliações do Google</span>
+              <h2 id="avaliacoes-title">Quem passa por aqui conta.</h2>
+              <p>Experiências de hóspedes que ajudam a escrever a história do Hotel California.</p>
+            </div>
+            <div class="rating-summary" aria-label="Nota 4 de 5, baseada em 361 avaliações no Google">
+              <strong>4,0 <span class="stars" aria-hidden="true">★★★★</span></strong>
+              <span>média de 361 avaliações</span>
+            </div>
+          </div>
+          <div class="review-grid">
+            <article class="review-card">
+              <span class="stars" aria-label="5 estrelas">★★★★★</span>
+              <blockquote>“Lugar aconchegante, o café da manhã é incrível, funcionários maravilhosos.”</blockquote>
+              <cite>Nélia Gyn · Avaliação no Google</cite>
+            </article>
+            <article class="review-card review-card--soft">
+              <span class="stars" aria-hidden="true">★★★★</span>
+              <p class="review-note">Cada avaliação é uma oportunidade para aperfeiçoar a experiência de quem escolhe ficar com a gente.</p>
+              <blockquote>Obrigado a todos os hóspedes que compartilham a sua experiência.</blockquote>
+              <cite>Hotel California · Goiânia</cite>
+            </article>
+          </div>
+          <a class="reviews-link" href="https://www.google.com/maps/search/?api=1&amp;query=-16.6541682%2C-49.2617995" target="_blank" rel="noopener noreferrer">Ver todas as avaliações no Google <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+
+      <section class="visit" id="localizacao" aria-labelledby="localizacao-title">
+        <div class="shell visit-grid">
+          <div class="visit-copy">
+            <span class="eyebrow">Como chegar</span>
+            <h2 id="localizacao-title">Goiânia fica ainda mais perto.</h2>
+            <p>Encontre o Hotel California no Setor Norte Ferroviário, em uma localização prática para chegar e seguir viagem.</p>
+            <div class="address"><strong>Endereço</strong>Rua SNF 6, QD. 06, LT. 16<br />Setor Norte Ferroviário · Goiânia, GO</div>
+            <a class="button" href="https://www.google.com/maps/search/?api=1&amp;query=-16.6541682%2C-49.2617995" target="_blank" rel="noopener noreferrer">Abrir rotas no Google Maps <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="map-wrap">
+            <iframe title="Mapa da localização do Hotel California em Goiânia" src="https://maps.google.com/maps?hl=pt-BR&amp;q=Hotel%20California%2C%20Goi%C3%A2nia%2C%20GO&amp;z=17&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="shell footer-line">
+        <a class="brand" href="#inicio" aria-label="Voltar ao início"><span class="brand-mark">HC</span><span>Hotel California</span></a>
+        <span>Goiânia, Goiás · Brasil</span>
+        <a href="tel:+5562994871117">(62) 99487-1117</a>
+      </div>
+    </footer>
+  </body>
+</html>
