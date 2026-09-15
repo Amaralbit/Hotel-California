@@ -1,0 +1,14 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Troque pelo e-mail definido em dist/assets/firebase-config.js antes de publicar as regras.
+    function isOwner() {
+      return request.auth != null && request.auth.token.email == 'COLOQUE_O_EMAIL_DO_PROPRIETARIO_AQUI';
+    }
+
+    match /rooms/{allPaths=**} {
+      allow read: if true;
+      allow write: if isOwner();
+    }
+  }
+}
