@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="dist/images/HotelCalifornia-ICON.png" />
     <meta name="description" content="Hotel California em Goiânia: estadia acolhedora, quartos confortáveis e café da manhã." />
     <title>Hotel California | Goiânia</title>
     <style>
@@ -118,9 +119,11 @@
         z-index: 1;
         background: linear-gradient(90deg, rgba(4, 19, 23, .84) 0%, rgba(7, 30, 34, .58) 48%, rgba(7, 23, 27, .16) 100%), linear-gradient(0deg, rgba(4, 18, 21, .28), transparent 45%);
       }
-      .hero::after { content: ""; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: radial-gradient(circle at var(--glow-x, 72%) var(--glow-y, 35%), rgba(229,183,111,.2), transparent 26%); transition: background .2s ease; }
-      .hero img { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: center 47%; filter: saturate(.84) contrast(1.05); transform: translate3d(0, var(--hero-parallax, 0px), 0) scale(1.04); transition: transform .12s linear, filter 1s ease; animation: hero-breathe 9s ease-in-out infinite alternate; }
-      .hero-content { position: relative; z-index: 2; display: flex; min-height: min(46rem, 92vh); align-items: flex-end; padding: 9.7rem 0 4.2rem; }
+      .hero::after { content: ""; position: absolute; z-index: 2; inset: 0; pointer-events: none; background: radial-gradient(circle at var(--glow-x, 72%) var(--glow-y, 35%), rgba(229,183,111,.2), transparent 26%); transition: background .2s ease; }
+      .hero-slides { position: absolute; z-index: 0; inset: -2rem; overflow: hidden; }
+      .hero-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 47%; filter: saturate(.84) contrast(1.05); opacity: 0; transform: translate3d(11%, var(--hero-parallax, 0px), 0) scale(1.06); }
+      .hero-slide.is-active { z-index: 1; animation: hero-slide 8.2s cubic-bezier(.22,.61,.36,1) both; }
+      .hero-content { position: relative; z-index: 3; display: flex; min-height: min(46rem, 92vh); align-items: flex-end; padding: 9.7rem 0 4.2rem; }
       .hero-copy { max-width: 46rem; }
       .hero-copy > * { animation: hero-rise .8s cubic-bezier(.2,.75,.25,1) both; }
       .hero-copy h1 { animation-delay: .08s; }
@@ -226,11 +229,13 @@
       .review-card:hover { box-shadow: 0 1rem 2.3rem rgba(17,50,56,.11); transform: translateY(-4px); }
 
       @keyframes hero-rise { from { opacity: 0; transform: translateY(1.35rem); } to { opacity: 1; transform: translateY(0); } }
-      @keyframes hero-breathe { from { filter: saturate(.8) contrast(1.04) brightness(.96); } to { filter: saturate(.92) contrast(1.07) brightness(1.04); } }
+      @keyframes hero-slide { 0% { opacity: 0; transform: translate3d(11%, var(--hero-parallax, 0px), 0) scale(1.06); } 13%, 82% { opacity: 1; } 100% { opacity: 0; transform: translate3d(-11%, var(--hero-parallax, 0px), 0) scale(1.04); } }
       @keyframes card-rise { from { opacity: 0; transform: translateY(1rem); } to { opacity: 1; transform: translateY(0); } }
 
       @media (prefers-reduced-motion: reduce) {
         *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+        .hero-slide { animation: none !important; opacity: 0; transform: none; }
+        .hero-slide:first-child { opacity: 1; }
       }
 
       @media (max-width: 780px) {
@@ -280,7 +285,11 @@
 
     <main>
       <section class="hero" id="inicio" aria-labelledby="hero-title">
-        <img src="dist/images/suite-casal.png" alt="Quarto do Hotel California, com cama de casal e cama de solteiro" />
+        <div class="hero-slides" aria-hidden="true">
+          <img class="hero-slide is-active" src="dist/images/suite-casal.png" alt="" />
+          <img class="hero-slide" src="dist/images/quarto-duplo.png" alt="" />
+          <img class="hero-slide" src="dist/images/quarto-com-tv.png" alt="" />
+        </div>
         <div class="shell hero-content">
           <div class="hero-copy">
             <span class="eyebrow">Em Goiânia, GO</span>

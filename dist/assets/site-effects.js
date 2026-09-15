@@ -30,6 +30,17 @@ if (!reduceMotion) {
 
   const hero = document.querySelector(".hero");
   if (hero) {
+    const slides = [...hero.querySelectorAll(".hero-slide")];
+    if (slides.length > 1) {
+      let activeSlide = 0;
+      window.setInterval(() => {
+        const previousSlide = slides[activeSlide];
+        activeSlide = (activeSlide + 1) % slides.length;
+        slides[activeSlide].classList.add("is-active");
+        window.setTimeout(() => previousSlide.classList.remove("is-active"), 1300);
+      }, 6800);
+    }
+
     hero.addEventListener("pointermove", (event) => {
       const bounds = hero.getBoundingClientRect();
       const x = ((event.clientX - bounds.left) / bounds.width) * 100;
