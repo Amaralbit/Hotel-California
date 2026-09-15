@@ -3,6 +3,7 @@ import {
   doc,
   getDoc,
   isFirebaseConfigured,
+  ownerBootstrapEmail,
 } from "./firebase-service.js";
 import { ownerWhatsAppNumber } from "./firebase-config.js";
 import {
@@ -54,7 +55,7 @@ async function loadRoom() {
     return;
   }
 
-  if (!isFirebaseConfigured) {
+  if (!isFirebaseConfigured || !ownerBootstrapEmail) {
     const room = demoRooms.find((item) => item.id === roomId);
     if (room) renderRoom(room);
     else renderNotFound();
@@ -64,10 +65,16 @@ async function loadRoom() {
   try {
     const snapshot = await getDoc(doc(db, "rooms", roomId));
     if (snapshot.exists()) renderRoom(normalizeRoom(snapshot.id, snapshot.data()));
-    else renderNotFound();
+    else {
+      const room = demoRooms.find((item) => item.id === roomId);
+      if (room) renderRoom(room);
+      else renderNotFound();
+    }
   } catch (error) {
     console.error(error);
-    renderNotFound();
+    const room = demoRooms.find((item) => item.id === roomId);
+    if (room) renderRoom(room);
+    else renderNotFound();
   }
 }
 

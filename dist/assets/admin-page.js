@@ -250,6 +250,13 @@ function startAdmin() {
     return;
   }
 
+  if (!ownerBootstrapEmail) {
+    setupMessage.classList.remove("hidden");
+    setupMessage.textContent = "Firebase conectado. Falta apenas definir o e-mail do proprietário para liberar o primeiro acesso e o cadastro de quartos.";
+    authSection.classList.add("hidden");
+    return;
+  }
+
   authForm.addEventListener("submit", handleAuth);
   authToggle.addEventListener("click", () => setSignupMode(!signupMode));
   roomForm.addEventListener("submit", saveRoom);

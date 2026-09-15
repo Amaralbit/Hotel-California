@@ -3,6 +3,7 @@ import {
   db,
   getDocs,
   isFirebaseConfigured,
+  ownerBootstrapEmail,
   orderBy,
   query,
 } from "./firebase-service.js";
@@ -43,20 +44,21 @@ function renderRooms(rooms) {
 }
 
 async function loadRooms() {
-  if (!isFirebaseConfigured) {
+  if (!isFirebaseConfigured || !ownerBootstrapEmail) {
     roomNotice.classList.remove("hidden");
-    roomNotice.textContent = "Catálogo demonstrativo: assim que o Firebase for conectado, os quartos e status serão atualizados pelo painel do proprietário.";
+    roomNotice.textContent = "Catálogo inicial: os quartos e status serão atualizados pelo painel assim que o acesso do proprietário for concluído.";
     renderRooms(demoRooms);
     return;
   }
 
   try {
     const snapshot = await getDocs(query(collection(db, "rooms"), orderBy("roomNumber")));
-    renderRooms(snapshot.docs.map((room) => normalizeRoom(room.id, room.data())));
+    const rooms = snapshot.docs.map((room) => normalizeRoom(room.id, room.data()));
+    renderRooms(rooms.length ? rooms : demoRooms);
   } catch (error) {
     roomNotice.classList.remove("hidden");
-    roomNotice.textContent = "Não foi possível carregar os quartos agora. Tente novamente em instantes.";
-    renderRooms([]);
+    roomNotice.textContent = "Catálogo inicial disponível. Os quartos cadastrados pelo proprietário aparecerão aqui assim que o acesso administrativo for concluído.";
+    renderRooms(demoRooms);
     console.error(error);
   }
 }
